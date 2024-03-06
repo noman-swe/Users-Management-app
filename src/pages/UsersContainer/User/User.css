@@ -1,0 +1,5 @@
+.user-name:hover {
+    text-decoration: underline;
+    transition: 500ms;
+    cursor: pointer;
+}

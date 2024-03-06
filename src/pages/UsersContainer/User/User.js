@@ -1,28 +1,32 @@
-import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import './User.css';
+import useUserCallBackFetch from '../../../hooks/useUserCallBackFetch';
 
 const User = ({ user }) => {
-    // console.log("props user data", props);
     const { image, firstName, lastName, email, address, company } = user;
-
+    const [users] = useUserCallBackFetch();
     const navigate = useNavigate();
 
-    const handleUserDetails = id => {
-        navigate('/userDetail')
-        console.log("Clicked", id);
+    const handleUserDetails = clickedId => {
+        navigate('/userDetail');
+        const clickedUser = users.find(user => user.id === clickedId);
+        console.log("Clicked", clickedUser);
     }
+
     return (
         <div>
-            <Card className='m-3 ' style={{ width: '310px' }}>
+            <Card className='m-3 ' style={{ width: '310px', height: "520px" }}>
                 <Card.Img variant="top" src={image} className='w-75 mx-auto p-3' />
                 <Card.Body className='mx-auto py-0 px-2' style={{ width: "280px" }}>
+
                     <table className="table">
                         <tbody>
                             <tr>
                                 <th scope="row">Name:</th>
-                                <td className='ps-1'> <Link to={''} onClick={() => handleUserDetails(user.id)} className="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fw-semibold">{firstName + " " + lastName} </Link> </td>
+                                <td className='ps-1'> <p onClick={() => handleUserDetails(user.id)} className="fw-semibold user-name">{firstName + " " + lastName} </p> </td>
                             </tr>
+
                             <tr>
                                 <th scope="row">Email:</th>
                                 <td> <small> {email}</small></td>
@@ -48,7 +52,11 @@ const User = ({ user }) => {
                                 <td> <small>  {address?.city}</small></td>
                             </tr>
                         </tbody>
+
                     </table>
+
+
+
 
                 </Card.Body>
 

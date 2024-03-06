@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
 import './Header.css';
 import logo from '../../../images/technext.png';
 import { Link } from 'react-router-dom';
+import useUserCallBackFetch from '../../../hooks/useUserCallBackFetch';
 
 const Header = () => {
+
+    const [value, setValue] = useState('');
+    const [users] = useUserCallBackFetch();
+
+    const handleSearchInputChange = event => {
+        setValue(event.target.value);
+    }
+
+    const handleSearch = searchTerm => {
+        setValue(searchTerm);
+    }
+
     return (
         <div>
             <Navbar expand="lg" className="bg-body-tertiary bg-header">
@@ -18,10 +31,34 @@ const Header = () => {
                         </Nav>
 
                         <Nav>
-                            <Form className="d-flex">
-                                <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
-                                <Button variant="outline-success">Search</Button>
-                            </Form>
+                            <div className="search-container">
+                                <div className="search-inner d-flex">
+                                    <Form.Control onChange={handleSearchInputChange} value={value} type="search" placeholder="Search" className="me-2" aria-label="Search" />
+                                    <Button onClick={() => handleSearch(value)} variant="outline-success">Search</Button>
+                                </div>
+                                <div className="dropdown">
+                                    {
+                                        users.filter(user => {
+                                            const searchTerm = value.toLowerCase();
+                                            const firstName = user.firstName.toLowerCase();
+
+                                            return searchTerm && firstName.startsWith(searchTerm) && firstName !== searchTerm;
+
+                                        }).slice(0, 5)
+                                            .map(user =>
+                                                <div
+                                                    onClick={() => handleSearch(user.firstName)}
+                                                    key={user.id}
+                                                    className='dropdown-row'
+                                                >
+                                                    {user.firstName}
+                                                </div>)
+                                    }
+                                </div>
+                            </div>
+
+
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
