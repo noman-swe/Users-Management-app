@@ -6,17 +6,15 @@ const Users = () => {
     const [users] = useUserCallBackFetch();
 
     return (
-        <div className='w-100'>
-            <CardGroup className='w-75 mx-auto row-cols-3'>
-                {
-                    users ?
-                        users.map(user => <User
-                            key={user.id}
-                            user={user}
-                        ></User>) : 'loading'
-                }
-            </CardGroup>
-        </div>
+        <CardGroup className='w-75 mx-auto mt-4 row-cols-3'>
+            {
+                users ?
+                    users.map(user => <User
+                        key={user.id}
+                        user={user}
+                    ></User>) : 'loading'
+            }
+        </CardGroup>
     );
 };
 

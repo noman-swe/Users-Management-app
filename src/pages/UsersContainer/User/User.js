@@ -1,26 +1,24 @@
+
 import { Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './User.css';
-import useUserCallBackFetch from '../../../hooks/useUserCallBackFetch';
 
 const User = ({ user }) => {
     const { image, firstName, lastName, email, address, company } = user;
-    const [users] = useUserCallBackFetch();
+
     const navigate = useNavigate();
 
     const handleUserDetails = clickedId => {
-        navigate('/userDetail');
-        const clickedUser = users.find(user => user.id === clickedId);
-        console.log("Clicked", clickedUser);
+        navigate(`/userDetail/${clickedId}`);
     }
 
     return (
         <div>
-            <Card className='m-3 ' style={{ width: '310px', height: "520px" }}>
+            <Card  className='mb-4' style={{ width: '310px', height: "520px" }}>
                 <Card.Img variant="top" src={image} className='w-75 mx-auto p-3' />
-                <Card.Body className='mx-auto py-0 px-2' style={{ width: "280px" }}>
+                <Card.Body className='mx-auto py-0 px-2 ms-1' style={{ width: "280px" }}>
 
-                    <table className="table">
+                    <table className="table ms-0">
                         <tbody>
                             <tr>
                                 <th scope="row">Name:</th>
@@ -54,9 +52,6 @@ const User = ({ user }) => {
                         </tbody>
 
                     </table>
-
-
-
 
                 </Card.Body>
 

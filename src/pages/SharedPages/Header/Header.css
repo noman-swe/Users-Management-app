@@ -1,8 +1,7 @@
 .dropdown{
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
+    
     border: 1px solid gray;
+  
 }
 
 .dropdown:empty{
@@ -13,4 +12,4 @@
     cursor: pointer;
     text-align: start;
     margin: 2px 0;
-}
+    }

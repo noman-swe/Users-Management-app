@@ -36,33 +36,33 @@ const Header = () => {
                                     <Form.Control onChange={handleSearchInputChange} value={value} type="search" placeholder="Search" className="me-2" aria-label="Search" />
                                     <Button onClick={() => handleSearch(value)} variant="outline-success">Search</Button>
                                 </div>
-                                <div className="dropdown">
-                                    {
-                                        users.filter(user => {
-                                            const searchTerm = value.toLowerCase();
-                                            const firstName = user.firstName.toLowerCase();
-
-                                            return searchTerm && firstName.startsWith(searchTerm) && firstName !== searchTerm;
-
-                                        }).slice(0, 5)
-                                            .map(user =>
-                                                <div
-                                                    onClick={() => handleSearch(user.firstName)}
-                                                    key={user.id}
-                                                    className='dropdown-row'
-                                                >
-                                                    {user.firstName}
-                                                </div>)
-                                    }
-                                </div>
                             </div>
-
-
-
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+
+            <Container>
+                <div className="dropdown d-flex flex-column ms-auto w-25">
+                    {
+                        users.filter(user => {
+                            const searchTerm = value.toLowerCase();
+                            const firstName = user.firstName.toLowerCase();
+
+                            return searchTerm && firstName.startsWith(searchTerm) && (firstName !== searchTerm);
+
+                        }).slice(0, 5)
+                            .map(user =>
+                                <div
+                                    onClick={() => handleSearch(user.firstName)}
+                                    key={user.id}
+                                    className='dropdown-row'
+                                >
+                                    <p className='border-bottom mb-0'>{user.firstName}</p>
+                                </div>)
+                    }
+                </div>
+            </Container>
         </div>
     );
 };
